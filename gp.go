@@ -75,7 +75,7 @@ type Population struct {
 	BoltSerie    string
 	CountFitness int
 	BestFit      float64
-	BestHistory  map[float64]Individuo
+	BestHistory  map[string]Individuo
 	Verbose      bool
 	TypeAlg      int
 }
@@ -90,7 +90,7 @@ func NewPopulation(t int, tind int, txc float64, txm float64, f func(Individuo) 
 	pop.BoltSerie = "gp"
 	pop.CountFitness = 0
 	pop.TypeAlg = GP
-	pop.BestHistory = map[float64]Individuo{}
+	pop.BestHistory = map[string]Individuo{}
 	pop.Channel = make(chan populationMessage)
 
 	for i := 0; i < t; i++ {
@@ -213,28 +213,28 @@ func (pop *Population) Tournament() {
 	if ind1.Fitness == 0.0 {
 		ind1.Fitness = pop.FunFitness(*ind1)
 		if pop.BestFit < ind1.Fitness {
-			pop.BestHistory[ind1.Fitness] = *ind1
+			pop.BestHistory[fmt.Sprint(ind1.Fitness)] = *ind1
 			pop.BestFit = ind1.Fitness
 		}
 	}
 	if ind2.Fitness == 0.0 {
 		ind2.Fitness = pop.FunFitness(*ind2)
 		if pop.BestFit < ind2.Fitness {
-			pop.BestHistory[ind2.Fitness] = *ind2
+			pop.BestHistory[fmt.Sprint(ind2.Fitness)] = *ind2
 			pop.BestFit = ind2.Fitness
 		}
 	}
 	if ind3.Fitness == 0.0 {
 		ind3.Fitness = pop.FunFitness(*ind3)
 		if pop.BestFit < ind3.Fitness {
-			pop.BestHistory[ind3.Fitness] = *ind3
+			pop.BestHistory[fmt.Sprint(ind3.Fitness)] = *ind3
 			pop.BestFit = ind3.Fitness
 		}
 	}
 	if ind4.Fitness == 0.0 {
 		ind4.Fitness = pop.FunFitness(*ind4)
 		if pop.BestFit < ind4.Fitness {
-			pop.BestHistory[ind4.Fitness] = *ind4
+			pop.BestHistory[fmt.Sprint(ind4.Fitness)] = *ind4
 			pop.BestFit = ind4.Fitness
 		}
 	}
